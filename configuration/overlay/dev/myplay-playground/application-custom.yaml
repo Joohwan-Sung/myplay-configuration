@@ -1,0 +1,4 @@
+spring:
+  application:
+    name: myplay-playground
+  microservice-name: myplay-playground

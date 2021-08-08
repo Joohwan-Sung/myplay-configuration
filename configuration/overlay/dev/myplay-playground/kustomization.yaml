@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+commonLabels:
+  microservice: myplay-playground
+  profile: dev
+  project: myplay
+configMapGenerator:
+- behavior: merge
+  files:
+  - application-custom.yaml
+  name: app-config
+images:
+- name: app
+  newName: factory-registry.cloudzcp.io/myplay/myplay-playground
+  newTag: latest
+kind: Kustomization
+namePrefix: myplay-playground-
+nameSuffix: -dev
+patchesJson6902:
+- path: service-patch.yaml
+  target:
+    kind: Service
+    name: app
+    version: v1
+patchesStrategicMerge:
+- container-patch.yaml
+- imagepolicy-patch.yaml
+# - metric-patch.yaml
+- pod-lifecycle-patch.yaml
+- probe-patch.yaml
+- replicas-patch.yaml
+- spec-patch.yaml
+resources:
+- ../common/deployment

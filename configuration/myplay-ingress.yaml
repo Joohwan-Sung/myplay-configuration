@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: public-nginx
+  name: myplay-ingress
+  namespace: myplay
+spec:
+  rules:
+  - host: myplay.factory-dev.cloudzcp.com
+    http:
+      paths:
+      - backend:
+          serviceName: myplay-bff-app-dev
+          servicePort: 8080
+        path: /

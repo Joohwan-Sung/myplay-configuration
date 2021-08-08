@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: app
+spec:
+  serviceName: app
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: app
+        image: app
+        ports:
+        - containerPort: 8080
+          name: web

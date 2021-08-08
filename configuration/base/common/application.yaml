@@ -1,0 +1,6 @@
+server:
+  port: 8080
+spring:
+  profiles:
+#    include: common,custom,test
+    include: common,custom,test,dev

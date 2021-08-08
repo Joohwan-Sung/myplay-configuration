@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../base/deployment
+  - ../resource/role.yaml # SA for dev environment
+  - ../resource/sa.yaml
+  - ../resource/secret.yaml
+  - ../resource/configmap.yaml
+commonLabels:
+  cluster-tier: dev
+configMapGenerator:
+  - name: app-config
+    behavior: merge
+    files:
+      - ../resource/application-common.yaml
+patches:
+  - path: ../resource/backend-cred-patch.yaml
+    target:
+      group: apps
+      version: v1
+      name: app
+  - path: ../resource/configmap-reader-patch.yaml
+    target:
+      group: apps
+      version: v1
+      name: app

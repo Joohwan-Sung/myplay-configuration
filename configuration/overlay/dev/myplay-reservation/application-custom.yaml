@@ -1,0 +1,4 @@
+spring:
+  application:
+    name: myplay-reservation
+  microservice-name: myplay-reservation

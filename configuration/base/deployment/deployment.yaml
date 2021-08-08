@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+#  selector:
+#    matchLabels:
+#      app: app
+  template:
+    spec:
+      containers:
+      - name: app
+        image: app
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /config
+          name: app-config-volume
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+#        readinessProbe:
+#          httpGet:
+#            path: /actuator/health
+#            port: 8080
+#          initialDelaySeconds: 10
+#          timeoutSeconds: 2
+#          periodSeconds: 5
+#          failureThreshold: 10
+#        livenessProbe:
+#          httpGet:
+#            path: /actuator/health
+#            port: 8080
+#          initialDelaySeconds: 120
+#          timeoutSeconds: 2
+#          periodSeconds: 5
+#          failureThreshold: 5  
+      volumes:
+      - name: app-config-volume
+        configMap:
+          name: app-config
